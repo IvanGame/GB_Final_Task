@@ -1,50 +1,25 @@
-﻿Console.Write("Введите размер массива: ");
-int n = int.Parse(Console.ReadLine());
+﻿// Вводим исходный массив строк с клавиатуры
+Console.Write("Введите элементы массива, разделяя их пробелами: ");
+string[] input = Console.ReadLine().Split(' ');
 
-string[] strings = new string[n];
-
-for (int i = 0; i < n; i++)
+// Создаем новый массив, содержащий только строки длиной меньше или равной 3 символам
+string[] output = new string[input.Length];
+int outputIndex = 0;
+for (int i = 0; i < input.Length; i++)
 {
-    Console.Write("Введите строку {0}: ", i + 1);
-    strings[i] = Console.ReadLine();
-}
-
-string[] filteredStrings = FilterStrings(strings);
-
-Console.WriteLine("Результат:");
-
-for (int i = 0; i < filteredStrings.Length; i++)
-{
-    Console.WriteLine(filteredStrings[i]);
-}
-
-Console.ReadKey();
-
-
-string[] FilterStrings(string[] strings)
-{
-    int count = 0;
-
-    for (int i = 0; i < strings.Length; i++)
+    if (input[i].Length <= 3)
     {
-        if (strings[i].Length <= 3)
-        {
-            count++;
-        }
+        output[outputIndex] = input[i];
+        outputIndex++;
     }
-
-    string[] filteredStrings = new string[count];
-
-    int index = 0;
-
-    for (int i = 0; i < strings.Length; i++)
-    {
-        if (strings[i].Length <= 3)
-        {
-            filteredStrings[index] = strings[i];
-            index++;
-        }
-    }
-
-    return filteredStrings;
 }
+Array.Resize(ref output, outputIndex);
+
+// Выводим результат на экран
+Console.WriteLine("Массив строк, длина которых меньше или равна 3 символам:");
+for (int i = 0; i < output.Length; i++)
+{
+    Console.WriteLine(output[i]);
+}
+
+Console.ReadLine();
